@@ -1,6 +1,6 @@
 <div class="show-mobile">
   <div>
-    <button>
+    <button (click)="toggleMenu()">
       <img src="./assets/svg/icon_menu.svg" alt="menu" />
     </button>
     <a href="">
@@ -10,7 +10,16 @@
       <img src="./assets/svg/icon_shopping_cart.svg" alt="logo" />
     </a>
   </div>
+  <div class="side-menu" [class.active]="activeMenu">
+    <button (click)="toggleMenu()">Close</button>
+    <ul>
+      <li><a href="">Todo</a></li>
+      <li><a href="">Ropa</a></li>
+      <li><a href="">Electronica</a></li>
+    </ul>
+  </div>
 </div>
+
 <div class="hide-mobile">
   <div>
     <nav>
@@ -18,9 +27,9 @@
         <img src="./assets/svg/logo_yard_sale.svg" alt="logo" />
       </a>
       <ul>
-        <li><a href="">All</a></li>
-        <li><a href="">Clothes</a></li>
-        <li><a href="">Electronics</a></li>
+        <li><a href="">Todo</a></li>
+        <li><a href="">Ropa</a></li>
+        <li><a href="">Electronica</a></li>
       </ul>
     </nav>
     <div class="info">
