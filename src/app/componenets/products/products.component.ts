@@ -8,6 +8,9 @@ import { Product } from '../../models/product.model';
 })
 export class ProductsComponent {
 
+  myShoppingCar: Product[] = [];
+  total = 0;
+
   products: Product[] = [
     {
       id: '1',
@@ -46,5 +49,11 @@ export class ProductsComponent {
       image: './assets/images/glasses.jpg'
     }
   ];
+
+  onAddToShoppingCar(product: Product){
+      console.log('Producto ',product);
+      this.myShoppingCar.push(product);
+      this.total =  this.myShoppingCar.reduce( (sum, item) => sum + item.price, 0 );
+  }
 
 }
