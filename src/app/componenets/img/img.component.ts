@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnChanges, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, AfterViewInit, OnDestroy, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-img',
@@ -7,9 +7,19 @@ import { Component, OnInit, Input, Output, EventEmitter, OnChanges, AfterViewIni
 })
 export class ImgComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
 
-  @Input() img: string = '';
+  img: string = '';
+
+  @Input('img')
+  set changeImg( newImg: string){
+    this.img = newImg;
+    console.log('change just img => ', this.img);
+    //code
+  }
+  @Input() alt: string = '';
   @Output() loaded = new EventEmitter<String>();
   imageDefault = './assets/images/default.png';
+  counter = 0;
+  counterFn: number | undefined;
 
   constructor(){
     /*
@@ -21,13 +31,14 @@ export class ImgComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy
     console.log('constructor', 'imgValue => ', this.img);
   }
 
-  ngOnChanges(){
+  ngOnChanges(changes: SimpleChanges){
     /*
     *Corre antes y durante del render
     *Su objetivo es actualizar los cambios en los inputs, corre muchas veces:
     las veces que nosotros actualicemos los inputs de nuestros componentes
     */
     console.log('ngOnChange', 'imgValue => ', this.img);
+    console.log('changes => ', changes);
   }
 
   ngOnInit(): void{
@@ -38,6 +49,10 @@ export class ImgComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy
      *Corre una sola vez
      */
      console.log('ngOnInit', 'imgValue => ', this.img);
+     this.counterFn = window.setInterval( () => {
+      this.counter+=1;
+      console.log( 'run counter' );
+     }, 1000);
   }
 
   ngAfterViewInit() {
@@ -54,6 +69,7 @@ export class ImgComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy
        * Este se corre solo cuando se va a eliminar el componente       *
        */
       console.log('ngOnDestroy');
+      window.clearInterval(this.counterFn);
   }
 
   imgError(){
