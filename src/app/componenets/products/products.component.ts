@@ -12,51 +12,10 @@ export class ProductsComponent implements OnInit{
 
   myShoppingCar: Product[] = [];
   total = 0;
-
-  /*
-  products: Product[] = [
-    {
-      id: '1',
-      name: 'El mejor juguete',
-      price: 565,
-      image: './assets/images/toy.jpg'
-    },
-    {
-      id: '2',
-      name: 'Bicicleta casi nueva',
-      price: 356,
-      image: './assets/images/bike.jpg'
-    },
-    {
-      id: '3',
-      name: 'Colleción de albumenes',
-      price: 34,
-      image: './assets/images/album.jpg'
-    },
-    {
-      id: '4',
-      name: 'Mis libros',
-      price: 23,
-      image: './assets/images/books.jpg'
-    },
-    {
-      id: '5',
-      name: 'Casa para perro',
-      price: 34,
-      image: './assets/images/house.jpg'
-    },
-    {
-      id: '6',
-      name: 'Gafas',
-      price: 465,
-      image: './assets/images/glasses.jpg'
-    }
-  ];
-  */
-
   products: Product[] = [];
   today = new Date();
   date = new Date(2020, 1, 23);
+  showProductDetail = false;
 
 
   constructor(
@@ -80,6 +39,19 @@ export class ProductsComponent implements OnInit{
       this.total =  this.myShoppingCar.reduce( (sum, item) => sum + item.price, 0 );*/
       this.storeService.addProduct( product );
       this.total = this.storeService.getTotal();
+  }
+
+  toogleProductDetails(){
+    this.showProductDetail = !this.showProductDetail;
+  }
+
+
+  onShowDetail(id: string){
+      console.log("id => ",id);
+      this.productsService.getProduct(id)
+      .subscribe(data => {
+          console.log("producto => ",data);
+      });
   }
 
 }
