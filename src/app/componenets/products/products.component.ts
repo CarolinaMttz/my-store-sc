@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Product,CreateProductDTO } from '../../models/product.model';
+import { Product, CreateProductDTO, UpdateProductDTO } from '../../models/product.model';
 import { StoreService } from '../../services/store.service';
 import { ProductsService } from '../../services/products.service';
 
@@ -80,5 +80,22 @@ export class ProductsComponent implements OnInit{
                           this.products.unshift(data);
                         });
   }
+
+  updateProduct(){
+    const changes: UpdateProductDTO = { //no es necesario el tipado
+      title: 'Titulo actualizado',
+    }
+    const idProd = this.productChoosen.id;
+    this.productsService.update( idProd, changes )
+                        .subscribe(data => {
+                          //console.log("updateProduct => ",data);
+                          const productIndex =  this.products.findIndex( item => item.id === this.productChoosen.id );
+                          this.products[productIndex] = data;
+                          this.productChoosen = data;// con esto se actualiza la info en el slide, sin necesidad de cerrar
+                          //luego de actualizar y luego volve abrir
+                        });
+
+  }
+
 
 }
