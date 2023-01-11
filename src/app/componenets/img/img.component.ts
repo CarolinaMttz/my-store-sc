@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, AfterViewInit, OnDestroy, SimpleChanges } from '@angular/core';
 
 @Component({
@@ -7,14 +8,17 @@ import { Component, OnInit, Input, Output, EventEmitter, OnChanges, AfterViewIni
 })
 export class ImgComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
 
+  // eslint-disable-next-line @typescript-eslint/no-inferrable-types
   img: string = '';
 
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('img')
   set changeImg( newImg: string){
     this.img = newImg;
     console.log('change just img => ', this.img);
     //code
   }
+  // eslint-disable-next-line @typescript-eslint/no-inferrable-types
   @Input() alt: string = '';
   @Output() loaded = new EventEmitter<String>();
   imageDefault = './assets/images/default.png';

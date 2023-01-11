@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Product } from './models/product.model';
+//import { Product } from './models/product.model'
 
 @Component({
   selector: 'app-root',
@@ -12,6 +12,7 @@ export class AppComponent {
   showImg = true;
 
 
+  // eslint-disable-next-line @typescript-eslint/ban-types
   onLoaded(img: String){
     console.log('log padre ', img);
   }
