@@ -2,4 +2,5 @@
 <app-img [img]="product.image"></app-img>
 <h2> ${{product.price | currency: 'COP' }} </h2>
 <p>Name: {{product.title}}</p>
+<p>Nombre inverso: {{product.title  | reverse }}</p>
 <button (click)="onAddToCar()">Add card</button>
