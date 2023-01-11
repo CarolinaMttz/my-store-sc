@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Product, CreateProductDTO, UpdateProductDTO } from '../../models/product.model';
 import { StoreService } from '../../services/store.service';
 import { ProductsService } from '../../services/products.service';
+import { th } from 'date-fns/locale';
 
 @Component({
   selector: 'app-products',
@@ -28,6 +29,9 @@ export class ProductsComponent implements OnInit{
     }
   }
 
+  limit = 10;
+  offset = 0;
+
   constructor(
     private storeService: StoreService,
     private productsService: ProductsService
@@ -36,17 +40,25 @@ export class ProductsComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    /*
     this.productsService.getAllProducts()
     .subscribe( data => {
       console.log(data);
       this.products = data;
     });
+    */
+    /*
+    this.productsService.getProductsByPage(10, 0)
+    .subscribe( data => {
+      console.log(data);
+      this.products = data;
+      this.offset  += this.limit;
+    });
+    */
+   this.loadMore();
   }
 
   onAddToShoppingCar(product: Product){
-      /*console.log('Producto ',product);
-      this.myShoppingCar.push(product);
-      this.total =  this.myShoppingCar.reduce( (sum, item) => sum + item.price, 0 );*/
       this.storeService.addProduct( product );
       this.total = this.storeService.getTotal();
   }
@@ -106,6 +118,14 @@ export class ProductsComponent implements OnInit{
                             this.showProductDetail = false; //para cerrar el panel lateral
                         });
 
+  }
+
+  loadMore(){
+    this.productsService.getProductsByPage(this.limit, this.offset)
+    .subscribe( data => {
+      this.products = this.products.concat(data);
+      this.offset  += this.limit;
+    });
   }
 
 
