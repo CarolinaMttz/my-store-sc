@@ -1,5 +1,5 @@
 <!--<img width="200" [src]="product.image" [alt]="product.name">-->
-<app-img [img]="product.image"></app-img>
+<app-img *ngIf="product.images.length > 0" [img]="product.images[0]"></app-img>
 <h2> <span>Precio:</span> ${{product.price | currency: 'COP' }} </h2>
 <p> <span>Nombre:</span> {{product.title}}</p>
 <button (click)="onAddToCar()">Add card</button>
