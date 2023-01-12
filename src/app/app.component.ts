@@ -12,6 +12,7 @@ export class AppComponent {
   //imgParent = 'https://i.pinimg.com/736x/99/0a/95/990a95804d42ae98dcefcf5a7632b846.jpg';
   imgParent = '';
   showImg = true;
+  //token = '';
 
   constructor(
     private authService: AuthService,
@@ -38,14 +39,22 @@ export class AppComponent {
     });
   }
 
+  /*
   login(){
     this.authService.login('carolina@email.com', '112233'  )
         .subscribe( rta => {
           console.log(rta);
+          this.token = rta.access_token;
         });
   }
 
-
+  getProfile(){
+    this.authService.profile(this.token)
+        .subscribe( rta => {
+          console.log(rta);
+        });
+  }
+  */
 
 
 }
