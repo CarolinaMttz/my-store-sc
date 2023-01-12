@@ -145,8 +145,8 @@ export class ProductsComponent implements OnInit{
 
         this.productsService.fetchReadAndUpdate(id, { title: 'change' })
                             .subscribe(response => {
-                              const read = response[0];
-                              const update = response[1];
+                              const read = response[0]; //porque se realizaron dos peticiones y la primera fue del getProduct()
+                              const update = response[1]; // fue la segunda petición, update()
                             });
 
 

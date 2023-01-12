@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 //import { Product } from './models/product.model'
+import { AuthService } from './services/auth.service';
+import { UsersService } from './services/users.service';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +13,10 @@ export class AppComponent {
   imgParent = '';
   showImg = true;
 
+  constructor(
+    private authService: AuthService,
+    private userService: UsersService
+  ){}
 
   // eslint-disable-next-line @typescript-eslint/ban-types
   onLoaded(img: String){
@@ -20,5 +26,26 @@ export class AppComponent {
   toggleImg(){
     this.showImg = !this.showImg;
   }
+
+  createUser(){
+    this.userService.create({
+      name: 'Carolina',
+      email: 'carolina@email.com',
+      password: '112233'
+    })
+    .subscribe( rta => {
+      console.log(rta);
+    });
+  }
+
+  login(){
+    this.authService.login('carolina@email.com', '112233'  )
+        .subscribe( rta => {
+          console.log(rta);
+        });
+  }
+
+
+
 
 }
