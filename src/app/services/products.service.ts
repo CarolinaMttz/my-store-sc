@@ -3,7 +3,7 @@ import { HttpClient, HttpParams, HttpErrorResponse, HttpStatusCode } from '@angu
 import { Product, CreateProductDTO, UpdateProductDTO } from '../models/product.model';
 import { retry, retryWhen, catchError, map} from 'rxjs/operators';
 import { environment } from './../../environments/environments';
-import { pipe, throwError } from 'rxjs';
+import { pipe, throwError, zip } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -78,6 +78,13 @@ export class ProductsService {
     }).pipe(
       retry(3)
     );
+  }
+
+  fetchReadAndUpdate(id: string, dto: UpdateProductDTO){
+    return zip(
+      this.getProduct(id),
+      this.update(id, dto)
+    )
   }
 
 }
