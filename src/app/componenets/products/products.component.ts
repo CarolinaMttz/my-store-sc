@@ -40,13 +40,13 @@ export class ProductsComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    /*
+    
     this.productsService.getAllProducts()
     .subscribe( data => {
       console.log(data);
       this.products = data;
     });
-    */
+
     /*
     this.productsService.getProductsByPage(10, 0)
     .subscribe( data => {
@@ -55,7 +55,7 @@ export class ProductsComponent implements OnInit{
       this.offset  += this.limit;
     });
     */
-   this.loadMore();
+   //this.loadMore();
   }
 
   onAddToShoppingCar(product: Product){
