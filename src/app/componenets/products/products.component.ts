@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Product, CreateProductDTO, UpdateProductDTO } from '../../models/product.model';
 import { StoreService } from '../../services/store.service';
 import { ProductsService } from '../../services/products.service';
-import { th } from 'date-fns/locale';
 
 @Component({
   selector: 'app-products',
