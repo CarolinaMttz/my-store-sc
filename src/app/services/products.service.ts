@@ -1,18 +1,19 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { Product, CreateProductDTO, UpdateProductDTO } from '../models/product.model';
-import { retry, retryWhen} from 'rxjs';
+import { retry, retryWhen, catchError} from 'rxjs/operators';
 import { environment } from './../../environments/environments';
+import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductsService {
 
-  //private apiUrl = 'https://young-sands-07814.herokuapp.com/api/products'; //Inicial
+  private apiUrl = 'https://young-sands-07814.herokuapp.com/api/products'; //Inicial
   //private apiUrl = 'https://young-sands-07814.herokuappapp.com/api/products'; //Para la clase reintentar una petición
   //private apiUrl = '/api/products'; //Para la clase de CORS
-  private apiUrl = `${environment.API_URL}/api/products`; //Clase manejo ambientes clase 12
+  //private apiUrl = `${environment.API_URL}/api/products`; //Clase manejo ambientes clase 12
 
   constructor(
     private http: HttpClient
@@ -32,7 +33,21 @@ export class ProductsService {
   }
 
   getProduct(id: string){ //Request para obtener el id en particular
-    return this.http.get<Product>(`${this.apiUrl}/${id}`);
+    return this.http.get<Product>(`${this.apiUrl}/${id}`)
+    .pipe(
+      catchError( (error: HttpErrorResponse) => {
+        if(error.status === HttpStatusCode.Conflict ){ //Error 409
+          return throwError('Algo está fallando en el servidor');
+        }
+        if(error.status === HttpStatusCode.NotFound ){ //Error 404
+          return throwError('El producto no fue encontrado');
+        }
+        if(error.status === HttpStatusCode.Unauthorized ){ //Error 404
+          return throwError('No estás autorizado');
+        }
+        return throwError('Ups! algo salió mal');
+      } )
+    )
   }
 
   create(dataDTO: CreateProductDTO){
