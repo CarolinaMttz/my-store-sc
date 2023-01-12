@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 //import { Product } from './models/product.model'
 import { AuthService } from './services/auth.service';
 import { UsersService } from './services/users.service';
+import { FilesService } from './services/files.service';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,8 @@ export class AppComponent {
 
   constructor(
     private authService: AuthService,
-    private userService: UsersService
+    private userService: UsersService,
+    private filesService: FilesService
   ){}
 
   // eslint-disable-next-line @typescript-eslint/ban-types
@@ -56,5 +58,8 @@ export class AppComponent {
   }
   */
 
-
+  downloadPDF(){
+       this.filesService.getFile('file_PDF', 'https://young-sands-07814.herokuapp.com/api/files/dummy.pdf', 'application/pdf' )
+       .subscribe();
+  }
 }
