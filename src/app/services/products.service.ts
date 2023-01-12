@@ -2,15 +2,17 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Product, CreateProductDTO, UpdateProductDTO } from '../models/product.model';
 import { retry, retryWhen} from 'rxjs';
+import { environment } from './../../environments/environments';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductsService {
 
-  //private apiUrl = 'https://young-sands-07814.herokuapp.com/api/products';
-  //private apiUrl = 'https://young-sands-07814.herokuappapp.com/api/products';
-  private apiUrl = '/api/products';
+  //private apiUrl = 'https://young-sands-07814.herokuapp.com/api/products'; //Inicial
+  //private apiUrl = 'https://young-sands-07814.herokuappapp.com/api/products'; //Para la clase reintentar una petición
+  //private apiUrl = '/api/products'; //Para la clase de CORS
+  private apiUrl = `${environment.API_URL}/api/products`; //Clase manejo ambientes clase 12
 
   constructor(
     private http: HttpClient
