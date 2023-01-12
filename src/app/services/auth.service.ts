@@ -4,7 +4,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from './../../environments/environments';
 import { Auth } from '../models/auth.model';
 import { User } from '../models/user.model';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, tap } from 'rxjs/operators';
+import { TokenService } from './../services/token.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,28 +16,34 @@ export class AuthService {
   private apiUrl = 'https://young-sands-07814.herokuapp.com/api/auth';
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private tokenService: TokenService
   ) { }
 
   login(email: string, password: string){
-    return this.http.post<Auth>( `${this.apiUrl}/login`,{email, password} );
+    return this.http.post<Auth>( `${this.apiUrl}/login`,{email, password} )
+    .pipe(
+          tap(response => this.tokenService.saveToken(response.access_token))
+    );
   }
 
-  profile(token: string){
+  profile(){
     // const header = new HttpHeaders();
     // header.set('Authorization',`Bearer ${token}`);
     return this.http.get<User>( `${this.apiUrl}/profile`, {
+      /*
       headers: {
         Authorization: `Bearer ${token}`,
         //'Content-type': 'application/json'
       }
+      */
     });
   }
 
   loginAndGet(email: string, password: string) {
     return this.login(email, password)
     .pipe(
-      switchMap(rta => this.profile(rta.access_token)),
+      switchMap(() => this.profile()),
     )
   }
 
