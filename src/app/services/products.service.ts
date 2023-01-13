@@ -99,4 +99,23 @@ export class ProductsService {
     return this.http.get<Product[]>( `${this.apiUrlCategory}/${categoryId}/products`, {params});
   }
 
+
+  getOne(id: string) {
+    return this.http.get<Product>(`${this.apiUrl}/${id}`)
+    .pipe(
+      catchError((error: HttpErrorResponse) => {
+        if (error.status === HttpStatusCode.Conflict) {
+          return throwError('Algo está fallando en el server');
+        }
+        if (error.status === HttpStatusCode.NotFound) {
+          return throwError('El producto no existe');
+        }
+        if (error.status === HttpStatusCode.Unauthorized) {
+          return throwError('No estás permitido');
+        }
+        return throwError('Ups algo salió mal');
+      })
+    )
+  }
+
 }
