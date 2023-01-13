@@ -21,12 +21,12 @@ const routes: Routes = [
     component: HomeComponent
   },
   {
-    path: 'notFound',
-    component: NotFoundComponent
-  },
-  {
     path: 'category/:id',
     component: CategoryComponent
+  },
+  {
+    path: '**',
+    component: NotFoundComponent
   },
   {
     path: 'myCart',
