@@ -15,6 +15,13 @@ export class ProductsComponent implements OnInit{
   myShoppingCar: Product[] = [];
   total = 0;
   @Input() products: Product[] = [];
+  @Input()
+  set productId( id: string | null ){ //esto es para estar vigilando el cambio continuo de este input
+      if(id){
+        this.onShowDetail(id);
+      }
+  }
+
   @Output() loadMore = new EventEmitter();
   today = new Date();
   date = new Date(2020, 1, 23);
@@ -61,7 +68,9 @@ export class ProductsComponent implements OnInit{
 
   onShowDetail(id: string){
       this.statusDetail = 'loading';
-      this.toogleProductDetails();
+      if( !this.showProductDetail ){
+          this.showProductDetail = true;
+      }
       this.productsService.getProduct(id)
                           .subscribe(data => {
                               this.productChoosen = data;

@@ -15,6 +15,7 @@ export class CategoryComponent  implements OnInit{
   limit = 10;
   offset = 0;
   products: Product[] = [];
+  showProductDetail = false;
 
   constructor(
     private route: ActivatedRoute,

@@ -1,3 +1,5 @@
+/* eslint-disable @angular-eslint/no-empty-lifecycle-method */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/ban-types */
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, AfterViewInit, OnDestroy, SimpleChanges } from '@angular/core';
 
@@ -15,7 +17,7 @@ export class ImgComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy
   @Input('img')
   set changeImg( newImg: string){
     this.img = newImg;
-    console.log('change just img => ', this.img);
+    //console.log('change just img => ', this.img);
     //code
   }
   // eslint-disable-next-line @typescript-eslint/no-inferrable-types
@@ -32,7 +34,7 @@ export class ImgComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy
     *Se deben hacer cosas que suceden de inmediato. Ej: this.image = 'nuevo valor';
     *La instancia del componente solo se crea una vez
     */
-    console.log('constructor', 'imgValue => ', this.img);
+    //console.log('constructor', 'imgValue => ', this.img);
   }
 
   ngOnChanges(changes: SimpleChanges){
@@ -41,8 +43,8 @@ export class ImgComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy
     *Su objetivo es actualizar los cambios en los inputs, corre muchas veces:
     las veces que nosotros actualicemos los inputs de nuestros componentes
     */
-    console.log('ngOnChange', 'imgValue => ', this.img);
-    console.log('changes => ', changes);
+    //console.log('ngOnChange', 'imgValue => ', this.img);
+    //console.log('changes => ', changes);
   }
 
   ngOnInit(): void{
@@ -52,7 +54,7 @@ export class ImgComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy
      cualquier cosa en la que necesitemos espera un tiempo
      *Corre una sola vez
      */
-     console.log('ngOnInit', 'imgValue => ', this.img);
+     //console.log('ngOnInit', 'imgValue => ', this.img);
      /*
      this.counterFn = window.setInterval( () => {
       this.counter+=1;
@@ -67,14 +69,14 @@ export class ImgComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy
       *Aqui se manejan los hijos, es decir, manipular esos hijos, ejecutar algunos
       eventos con ellos de forma programatica
     */
-    console.log('ngAfterViewInit');
+    //console.log('ngAfterViewInit');
   }
 
   ngOnDestroy(){
       /**
        * Este se corre solo cuando se va a eliminar el componente       *
        */
-      console.log('ngOnDestroy');
+      //console.log('ngOnDestroy');
       //window.clearInterval(this.counterFn);
   }
 
@@ -83,7 +85,7 @@ export class ImgComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy
   }
 
   imgLoaded(){
-    console.log('Log hijo');
+    //console.log('Log hijo');
     this.loaded.emit(this.img);
   }
 
