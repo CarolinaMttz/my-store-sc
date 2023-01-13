@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Product, CreateProductDTO, UpdateProductDTO } from '../../models/product.model';
 import { StoreService } from '../../services/store.service';
 import { ProductsService } from '../../services/products.service';
@@ -15,6 +15,7 @@ export class ProductsComponent implements OnInit{
   myShoppingCar: Product[] = [];
   total = 0;
   @Input() products: Product[] = [];
+  @Output() loadMore = new EventEmitter();
   today = new Date();
   date = new Date(2020, 1, 23);
   showProductDetail = false;
@@ -30,8 +31,6 @@ export class ProductsComponent implements OnInit{
     }
   }
 
-  //limit = 10;
-  //offset = 0;
   statusDetail: 'loading' | 'success' | 'error'  | 'init' = 'init';
 
   constructor(
@@ -116,13 +115,7 @@ export class ProductsComponent implements OnInit{
 
   }
 
-  /*loadMore(){
-    this.productsService.getProductsByPage(this.limit, this.offset)
-    .subscribe( data => {
-      this.products = this.products.concat(data);
-      this.offset  += this.limit;
-    });
-  }*/
+
 
   readAndUpdate(id: string){
     this.productsService.getProduct(id)
@@ -142,5 +135,9 @@ export class ProductsComponent implements OnInit{
 
   }
 
+  onLoadMore() {
+    console.log('more');
+    this.loadMore.emit();
+  }
 
 }

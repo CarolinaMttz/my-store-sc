@@ -15,6 +15,7 @@ export class ProductsService {
   //private apiUrl = 'https://young-sands-07814.herokuappapp.com/api/products'; //Para la clase reintentar una petición
   //private apiUrl = '/api/products'; //Para la clase de CORS
   //private apiUrl = `${environment.API_URL}/api/products`; //Clase manejo ambientes clase 12
+  private apiUrlCategory = 'https://young-sands-07814.herokuapp.com/api/categories';
 
   constructor(
     private http: HttpClient
@@ -26,9 +27,9 @@ export class ProductsService {
 
   getAllProducts(limit?: number, offset?: number){
     let params = new HttpParams();
-    if(limit && offset){
+    if(limit && offset != null ){
       params = params.set('limit', limit);
-      params = params.set('offset', limit);
+      params = params.set('offset', offset);
     }
     return this.http.get<Product[]>(this.apiUrl, {params, context: checkTime() })
     .pipe(
@@ -86,6 +87,16 @@ export class ProductsService {
       this.getProduct(id),
       this.update(id, dto)
     )
+  }
+
+  getByCategory( categoryId: string, limit?: number, offset?: number ){
+    let params = new HttpParams();
+    if(limit && offset != null ){
+      params = params.set('limit', limit);
+      params = params.set('offset', offset);
+    }
+
+    return this.http.get<Product[]>( `${this.apiUrlCategory}/${categoryId}/products`, {params});
   }
 
 }
