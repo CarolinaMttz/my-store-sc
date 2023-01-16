@@ -45,4 +45,8 @@ export class AuthService {
     )
   }
 
+  logOut(){
+    this.tokenService.removeToken();
+  }
+
 }

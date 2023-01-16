@@ -15,7 +15,7 @@
 
   </div>
   <div class="side-menu" [class.active]="activeMenu">
-    <button (click)="toggleMenu()">Close</button>
+    <button (click)="toggleMenu()">X</button>
     <ul>
       <li><a routerLink="home">All</a></li>
       <li *ngFor="let item of categories">
@@ -44,6 +44,7 @@
         <button *ngIf="!profile; else elseBlock" (click)="login()">Login</button>
         <ng-template #elseBlock>
           <a routerLink="/profile">{{ profile?.email }}</a>
+          <button (click)="logout()">Logout</button>
         </ng-template>
       </div>
 

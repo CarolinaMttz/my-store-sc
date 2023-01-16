@@ -49,7 +49,6 @@ export class NavComponent implements OnInit {
     this.authService.loginAndGet('carolina@email.com', '112233')
     .subscribe(() => {
       this.router.navigate(['/profile']);
-      console.log('hola soy el login()');
     });
   }
 
@@ -66,6 +65,12 @@ export class NavComponent implements OnInit {
     .subscribe(data => {
       this.categories = data;
     });
+  }
+
+  logout(){
+    this.authService.logOut();
+    this.profile = null;
+    this.router.navigate(['/home']);
   }
 
 }
