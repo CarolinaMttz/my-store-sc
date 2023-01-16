@@ -6,6 +6,7 @@ import { AuthService } from '../../../services/auth.service';
 import { CategoriesService } from '../../../services/categories.service';
 import { User } from '../../../models/user.model';
 import { Category } from './../../../models/category.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
@@ -23,37 +24,33 @@ export class NavComponent implements OnInit {
   constructor(
     private storeService: StoreService,
     private authService: AuthService,
-    private categoriesService: CategoriesService
+    private categoriesService: CategoriesService,
+    private router: Router
   ){
   }
 
   ngOnInit(): void {
-      this.storeService.myCar$.subscribe( products => {
-        this.counter = products.length;
-      } );
-      this.getAllCategories();
+    this.storeService.myCar$.subscribe(products => {
+      this.counter = products.length;
+    });
+    this.getAllCategories();
+    this.authService.user$
+    .subscribe(data => {
+      this.profile = data;
+    })
   }
 
   toggleMenu(){
     this.activeMenu = !this.activeMenu;
   }
 
-  login(){
-    /*
-    this.authService.login('carolina@email.com', '112233')
-      .subscribe(rta => {
-         this.token = rta.access_token;
-         console.log(this.token);
-         this.getProfile();
-      });
-      */
 
-      this.authService.loginAndGet('carolina@email.com', '112233')
-      .subscribe(user => {
-        this.profile = user;
-        //console.log("login ", user);
-        //this.token = '..';
-      });
+  login() {
+    this.authService.loginAndGet('carolina@email.com', '112233')
+    .subscribe(() => {
+      this.router.navigate(['/profile']);
+      console.log('hola soy el login()');
+    });
   }
 
   /*getProfile(){

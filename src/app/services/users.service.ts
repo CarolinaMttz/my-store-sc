@@ -9,7 +9,8 @@ import { User, CreateUserDTO } from '../models/user.model';
 export class UsersService {
 
   //private apiUrl = `${environment.API_URL}/api/users`;
-  private apiUrl = 'https://young-sands-07814.herokuapp.com/api/users';
+  //private apiUrl = 'https://young-sands-07814.herokuapp.com/api/users';
+  private apiUrl = 'https://damp-spire-59848.herokuapp.com/api/users';
 
 
   constructor(

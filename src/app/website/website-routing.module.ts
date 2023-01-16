@@ -9,6 +9,7 @@ import { RecoveryComponent } from './pages/recovery/recovery.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { ProductDetailComponent } from './pages/product-detail/product-detail.component';
 import { LayaoutComponent } from './componenets/layaout/layaout.component';
+import { AuthGuard } from './../guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -53,6 +54,7 @@ const routes: Routes = [
       },
       {
         path: 'profile',
+        canActivate: [AuthGuard],
         component: ProfileComponent
       }
     ]
