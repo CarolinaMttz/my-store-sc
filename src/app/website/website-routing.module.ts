@@ -10,6 +10,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { ProductDetailComponent } from './pages/product-detail/product-detail.component';
 import { LayaoutComponent } from './componenets/layaout/layaout.component';
 import { AuthGuard } from './../guards/auth.guard';
+import { ExitGuard } from './../guards/exit.guard';
 
 const routes: Routes = [
   {
@@ -46,6 +47,7 @@ const routes: Routes = [
       },
       {
         path: 'register',
+        canDeactivate: [ExitGuard],
         component: RegisterComponent
       },
       {
